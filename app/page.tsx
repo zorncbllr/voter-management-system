@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/common/data-table";
+import { DataTable } from "@/components/shared/data-table";
 import {
   Card,
   CardContent,
@@ -6,8 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Voter } from "@/lib/generated/prisma";
+import { prisma } from "@/lib/prisma";
 
-export default function Home() {
+export default async function Home() {
+  const voters: Voter[] = await prisma.voter.findMany();
+
   return (
     <div className="flex justify-center pt-12 bg-secondary w-full h-screen">
       <div className="w-4/5">
@@ -20,7 +24,7 @@ export default function Home() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <DataTable />
+            <DataTable data={voters} />
           </CardContent>
         </Card>
       </div>
