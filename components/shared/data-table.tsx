@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Check, ChevronDown, X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +34,9 @@ import {
 import { Voter } from "@/lib/generated/prisma";
 import { Checkbox } from "../ui/checkbox";
 import { updateStatus } from "@/app/actions";
+import ImportButton from "./import-button";
+import ExportButton from "./export-button";
+import ClearButton from "./clear-button";
 
 const columns: ColumnDef<Voter>[] = [
   {
@@ -114,7 +117,7 @@ export function DataTable({ data }: { data: Voter[] }) {
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center justify-between py-4">
         <Input
           placeholder="Filter Names..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -123,32 +126,40 @@ export function DataTable({ data }: { data: Voter[] }) {
           }
           className="max-w-sm"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-2 items-center">
+          <ExportButton />
+
+          <ImportButton />
+
+          <ClearButton />
+
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="ml-auto">
+                Columns <ChevronDown />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {table
+                .getAllColumns()
+                .filter((column) => column.getCanHide())
+                .map((column) => {
+                  return (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      className="capitalize"
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(value) =>
+                        column.toggleVisibility(!!value)
+                      }
+                    >
+                      {column.id}
+                    </DropdownMenuCheckboxItem>
+                  );
+                })}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </div>
       <div className="rounded-md border">
         <Table>
