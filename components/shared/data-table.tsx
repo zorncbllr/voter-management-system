@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/table";
 import { Voter } from "@/lib/generated/prisma";
 import { Checkbox } from "../ui/checkbox";
+import { updateStatus } from "@/app/actions";
 
 const columns: ColumnDef<Voter>[] = [
   {
@@ -50,10 +51,18 @@ const columns: ColumnDef<Voter>[] = [
     cell: ({ row }) => {
       const raw = row.original;
 
+      React.useEffect(() => {
+        if (row.getIsSelected() !== raw.isGiven) {
+          row.toggleSelected(raw.isGiven);
+        }
+      }, [row, raw.isGiven]);
+
       return (
         <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          checked={raw.isGiven}
+          onCheckedChange={(value) =>
+            updateStatus({ voterId: raw.voterId, value: !!value })
+          }
           aria-label="Select row"
         />
       );
