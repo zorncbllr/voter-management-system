@@ -32,8 +32,35 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Voter } from "@/lib/generated/prisma";
+import { Checkbox } from "../ui/checkbox";
 
 const columns: ColumnDef<Voter>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+      />
+    ),
+    cell: ({ row }) => {
+      const raw = row.original;
+
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      );
+    },
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: "Name",
@@ -45,18 +72,6 @@ const columns: ColumnDef<Voter>[] = [
   {
     accessorKey: "precinct",
     header: "Precinct",
-  },
-  {
-    accessorKey: "isGiven",
-    header: "Status",
-    cell: ({ row }) => {
-      const isGiven = row.getValue("isGiven");
-      return isGiven ? (
-        <Check className="h-4 w-4 text-green-500" />
-      ) : (
-        <X className="h-4 w-4 text-red-500" />
-      );
-    },
   },
 ];
 

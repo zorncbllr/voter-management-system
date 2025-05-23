@@ -15,5 +15,5 @@ model Voter {
   voterId  Int     @id @default(autoincrement())
   name     String
   precinct String
-  isGiven  Boolean @default(true)
+  isGiven  Boolean @default(false)
 }
