@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { ChangeEvent } from "react";
+import { importPDFAction } from "../actions/import-pdf";
 
 function ImportButton() {
   const importFile = (e: ChangeEvent<HTMLInputElement>) => {
@@ -16,9 +16,7 @@ function ImportButton() {
       reader.onload = async (ev) => {
         const pdf: string = reader.result?.toString().split(",")[1] as string;
 
-        const res = await axios.post("/api/voters", { pdf });
-
-        console.log(res.data);
+        importPDFAction(pdf);
       };
 
       reader.readAsDataURL(pdf);
