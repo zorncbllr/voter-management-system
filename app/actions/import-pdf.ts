@@ -80,6 +80,8 @@ export const importPDFAction = async (base64Data: string) => {
             "TINIGBAN",
             "AROROY",
             "MASBATE",
+            "NATIONAL",
+            "LOCAL",
           ];
 
           if (result) {
