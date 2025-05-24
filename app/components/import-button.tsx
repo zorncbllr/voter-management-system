@@ -13,10 +13,11 @@ function ImportButton() {
 
       const reader = new FileReader();
 
-      reader.onload = async (ev) => {
+      reader.onload = async () => {
         const pdf: string = reader.result?.toString().split(",")[1] as string;
 
-        importPDFAction(pdf);
+        await importPDFAction(pdf);
+        e.target.value = "";
       };
 
       reader.readAsDataURL(pdf);
