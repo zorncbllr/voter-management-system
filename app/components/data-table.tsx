@@ -32,11 +32,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Voter } from "@/lib/generated/prisma";
-import { Checkbox } from "../ui/checkbox";
-import { updateStatus } from "@/app/actions";
-import ImportButton from "./import-button";
+
 import ExportButton from "./export-button";
 import ClearButton from "./clear-button";
+import { Checkbox } from "@/components/ui/checkbox";
+import ImportButton from "./import-button";
+import { updateStatusAction } from "../actions/update-status";
 
 const columns: ColumnDef<Voter>[] = [
   {
@@ -63,9 +64,9 @@ const columns: ColumnDef<Voter>[] = [
       return (
         <Checkbox
           checked={raw.isGiven}
-          onCheckedChange={(value) =>
-            updateStatus({ voterId: raw.voterId, value: !!value })
-          }
+          onCheckedChange={(value) => {
+            updateStatusAction({ voterId: raw.voterId, value: !!value });
+          }}
           aria-label="Select row"
         />
       );
@@ -74,12 +75,12 @@ const columns: ColumnDef<Voter>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "name",
-    header: "Name",
-  },
-  {
     accessorKey: "voterId",
     header: "Voter ID",
+  },
+  {
+    accessorKey: "name",
+    header: "Name",
   },
   {
     accessorKey: "precinct",

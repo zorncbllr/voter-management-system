@@ -1,4 +1,3 @@
-import { DataTable } from "@/components/shared/data-table";
 import {
   Card,
   CardContent,
@@ -8,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Voter } from "@/lib/generated/prisma";
 import { prisma } from "@/lib/prisma";
+import { DataTable } from "./components/data-table";
 
 export default async function Home() {
   const voters: Voter[] = await prisma.voter.findMany();

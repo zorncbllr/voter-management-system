@@ -1,5 +1,5 @@
+import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
-import { Button } from "../ui/button";
 
 function ClearButton() {
   return (
