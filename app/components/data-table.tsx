@@ -56,15 +56,14 @@ const columns: ColumnDef<Voter>[] = [
       const raw = row.original;
 
       React.useEffect(() => {
-        if (row.getIsSelected() !== raw.isGiven) {
-          row.toggleSelected(raw.isGiven);
-        }
-      }, [row, raw.isGiven]);
+        row.toggleSelected(raw.isGiven);
+      }, []);
 
       return (
         <Checkbox
-          checked={raw.isGiven}
+          checked={row.getIsSelected()}
           onCheckedChange={(value) => {
+            row.toggleSelected();
             updateStatusAction({ voterId: raw.voterId, value: !!value });
           }}
           aria-label="Select row"

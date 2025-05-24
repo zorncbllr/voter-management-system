@@ -20,8 +20,6 @@ export const updateStatusAction = async ({
       },
     });
 
-    revalidatePath("/");
-
     return { success: true, status: 204 };
   } catch (error) {
     return { success: false, status: 500 };
