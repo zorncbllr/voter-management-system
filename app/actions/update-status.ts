@@ -10,14 +10,20 @@ export const updateStatusAction = async ({
   voterId: number;
   value: boolean;
 }) => {
-  await prisma.voter.update({
-    data: {
-      isGiven: value,
-    },
-    where: {
-      voterId,
-    },
-  });
+  try {
+    await prisma.voter.update({
+      data: {
+        isGiven: value,
+      },
+      where: {
+        voterId,
+      },
+    });
 
-  revalidatePath("/");
+    revalidatePath("/");
+
+    return { success: true, status: 204 };
+  } catch (error) {
+    return { success: false, status: 500 };
+  }
 };
