@@ -55,7 +55,7 @@ const columns: ColumnDef<Voter>[] = [
     cell: ({ row }) => {
       const raw = row.original;
 
-      React.useEffect(() => {
+      React.useLayoutEffect(() => {
         row.toggleSelected(raw.isGiven);
       }, []);
 
@@ -64,6 +64,7 @@ const columns: ColumnDef<Voter>[] = [
           checked={row.getIsSelected()}
           onCheckedChange={(value) => {
             row.toggleSelected();
+            raw.isGiven = !!value;
             updateStatusAction({ voterId: raw.voterId, value: !!value });
           }}
           aria-label="Select row"
