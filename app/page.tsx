@@ -9,6 +9,7 @@ import { Voter } from "@/lib/generated/prisma";
 import { prisma } from "@/lib/prisma";
 import { DataTable } from "./components/data-table";
 import DeleteModal from "./components/delete-modal";
+import VoterFormModal from "./components/voter-form-modal";
 
 export default async function Home() {
   const voters: Voter[] = await prisma.voter.findMany();
@@ -31,6 +32,7 @@ export default async function Home() {
       </div>
 
       <DeleteModal />
+      <VoterFormModal />
     </div>
   );
 }

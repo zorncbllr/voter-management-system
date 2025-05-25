@@ -3,12 +3,17 @@
 import { create } from "zustand";
 
 interface ModalStore {
-  open: boolean;
-  setOpen: (open: boolean) => void;
+  openClear: boolean;
+  openForm: boolean;
+
+  setOpenForm: (openForm: boolean) => void;
+  setOpenClear: (openClear: boolean) => void;
 }
 
 export const useModalStore = create<ModalStore>((set) => ({
-  open: false,
+  openClear: false,
+  openForm: false,
 
-  setOpen: (open) => set(() => ({ open })),
+  setOpenForm: (openForm: boolean) => set(() => ({ openForm })),
+  setOpenClear: (openClear) => set(() => ({ openClear })),
 }));

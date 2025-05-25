@@ -38,6 +38,7 @@ import ClearButton from "./clear-button";
 import { Checkbox } from "@/components/ui/checkbox";
 import ImportButton from "./import-button";
 import { updateStatusAction } from "../actions/update-status";
+import AddButton from "./add-button";
 
 const columns: ColumnDef<Voter>[] = [
   {
@@ -131,6 +132,8 @@ export function DataTable({ data }: { data: Voter[] }) {
           <ExportButton />
 
           <ImportButton />
+
+          <AddButton />
 
           <ClearButton />
 

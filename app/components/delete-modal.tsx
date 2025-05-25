@@ -12,10 +12,10 @@ import { Button } from "@/components/ui/button";
 import { clearVotersAction } from "../actions/clear-voters";
 
 export default function DeleteModal() {
-  const { open, setOpen } = useModalStore();
+  const { openClear, setOpenClear } = useModalStore();
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={openClear} onClose={setOpenClear} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
@@ -56,13 +56,13 @@ export default function DeleteModal() {
               <Button
                 onClick={async () => {
                   await clearVotersAction();
-                  setOpen(false);
+                  setOpenClear(false);
                 }}
               >
                 Clear
               </Button>
 
-              <Button variant={"secondary"} onClick={() => setOpen(false)}>
+              <Button variant={"secondary"} onClick={() => setOpenClear(false)}>
                 Cancel
               </Button>
             </div>

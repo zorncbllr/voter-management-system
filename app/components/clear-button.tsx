@@ -5,10 +5,10 @@ import { Trash } from "lucide-react";
 import { useModalStore } from "../stores/modal-store";
 
 function ClearButton() {
-  const { setOpen } = useModalStore();
+  const { setOpenClear } = useModalStore();
 
   return (
-    <Button variant={"outline"} onClick={() => setOpen(true)}>
+    <Button variant={"outline"} onClick={() => setOpenClear(true)}>
       Clear <Trash />
     </Button>
   );
