@@ -12,7 +12,11 @@ import DeleteModal from "./components/delete-modal";
 import VoterFormModal from "./components/voter-form-modal";
 
 export default async function Home() {
-  const voters: Voter[] = await prisma.voter.findMany();
+  const voters: Voter[] = await prisma.voter.findMany({
+    orderBy: {
+      precinct: "asc",
+    },
+  });
 
   return (
     <div className="flex justify-center pt-12 bg-secondary w-full h-screen">

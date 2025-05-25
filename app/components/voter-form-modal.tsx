@@ -9,7 +9,6 @@ import {
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { useModalStore } from "../stores/modal-store";
 import { Button } from "@/components/ui/button";
-import { clearVotersAction } from "../actions/clear-voters";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +22,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useEffect } from "react";
+import { addVoterAction } from "../actions/add-voter";
 
 const voterSchema = z.object({
   name: z
@@ -51,8 +52,18 @@ export default function VoterFormModal() {
   });
 
   const submitHandler = (value: z.infer<typeof voterSchema>) => {
-    console.log(value);
+    addVoterAction(value);
+    setOpenForm(false);
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      form.reset({
+        name: "",
+        precinct: "",
+      });
+    }, 500);
+  }, [openForm]);
 
   return (
     <Dialog open={openForm} onClose={setOpenForm} className="relative z-10">
