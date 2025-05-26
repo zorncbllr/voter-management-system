@@ -35,7 +35,7 @@ function ExportButton() {
   return (
     <>
       {exporting ? (
-        <LoadingButton variant={"default"} />
+        <LoadingButton variant={"default"} label="Exporting" />
       ) : (
         <Button onClick={handleExport}>Export</Button>
       )}

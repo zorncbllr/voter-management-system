@@ -74,7 +74,7 @@ export default function DeleteModal() {
             </div>
             <div className="bg-gray-50 px-4 gap-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               {clearing ? (
-                <LoadingButton variant={"default"} />
+                <LoadingButton variant={"default"} label="Clearing" />
               ) : (
                 <Button onClick={handleClick}>Clear</Button>
               )}

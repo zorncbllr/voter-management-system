@@ -1,8 +1,10 @@
 import { Button } from "./button";
 
 function LoadingButton({
+  label,
   variant,
 }: {
+  label?: string;
   variant?:
     | "secondary"
     | "ghost"
@@ -15,7 +17,7 @@ function LoadingButton({
 }) {
   return (
     <Button disabled type="button" variant={variant}>
-      Loading
+      {label ?? "Loading"}
       <svg
         aria-hidden="true"
         role="status"

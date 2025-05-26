@@ -36,7 +36,7 @@ function ImportButton() {
   return (
     <>
       {importing ? (
-        <LoadingButton variant={"outline"} />
+        <LoadingButton variant={"outline"} label="Importing" />
       ) : (
         <div className="relative grid place-items-center overflow-hidden h-fit">
           <input
