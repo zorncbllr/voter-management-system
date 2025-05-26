@@ -4,9 +4,14 @@ import { Button } from "@/components/ui/button";
 import { saveAs } from "file-saver";
 import { exportExcelAction } from "../actions/export-excel";
 import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
+import LoadingButton from "@/components/ui/loading-button";
 
 function ExportButton() {
+  const [exporting, setExporting] = useState<boolean>(false);
+
   const handleExport = async () => {
+    setExporting(true);
     const res = await exportExcelAction();
 
     if (res.success && res.blob) {
@@ -23,9 +28,19 @@ function ExportButton() {
         description: "Try importing PCVL files first to populate the table.",
       });
     }
+
+    setExporting(false);
   };
 
-  return <Button onClick={handleExport}>Export</Button>;
+  return (
+    <>
+      {exporting ? (
+        <LoadingButton variant={"default"} />
+      ) : (
+        <Button onClick={handleExport}>Export</Button>
+      )}
+    </>
+  );
 }
 
 export default ExportButton;

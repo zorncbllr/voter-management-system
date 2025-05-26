@@ -22,9 +22,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { addVoterAction } from "../actions/add-voter";
 import { toast } from "@/hooks/use-toast";
+import LoadingButton from "@/components/ui/loading-button";
 
 const voterSchema = z.object({
   name: z
@@ -43,6 +44,7 @@ const voterSchema = z.object({
 
 export default function VoterFormModal() {
   const { openForm, setOpenForm } = useModalStore();
+  const [creating, setCreating] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof voterSchema>>({
     resolver: zodResolver(voterSchema),
@@ -53,19 +55,22 @@ export default function VoterFormModal() {
   });
 
   const submitHandler = (value: z.infer<typeof voterSchema>) => {
+    setCreating(true);
+
     addVoterAction(value).then((res) => {
       if (res.success) {
         setOpenForm(false);
         toast({
           title: res.msg,
           description: "You can manage them now in voters table.",
-          action: <Button>Okay</Button>,
         });
       } else {
         form.setError("name", {
           message: res.msg,
         });
       }
+
+      setCreating(false);
     });
   };
 
@@ -75,6 +80,7 @@ export default function VoterFormModal() {
         name: "",
         precinct: "",
       });
+      setCreating(false);
     }, 500);
   }, [openForm]);
 
@@ -169,10 +175,15 @@ export default function VoterFormModal() {
                 </div>
 
                 <div className="bg-gray-50 px-4 gap-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <Button type="submit">Create</Button>
+                  {creating ? (
+                    <LoadingButton variant={"default"} />
+                  ) : (
+                    <Button type="submit">Create</Button>
+                  )}
 
                   <Button
                     type="button"
+                    disabled={creating}
                     variant={"secondary"}
                     onClick={() => setOpenForm(false)}
                   >

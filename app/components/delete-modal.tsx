@@ -11,11 +11,16 @@ import { useModalStore } from "../stores/modal-store";
 import { Button } from "@/components/ui/button";
 import { clearVotersAction } from "../actions/clear-voters";
 import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
+import LoadingButton from "@/components/ui/loading-button";
+import { LoaderIcon } from "lucide-react";
 
 export default function DeleteModal() {
   const { openClear, setOpenClear } = useModalStore();
+  const [clearing, setClearing] = useState<boolean>(false);
 
   const handleClick = async () => {
+    setClearing(true);
     const res = await clearVotersAction();
 
     if (res.success) {
@@ -25,6 +30,8 @@ export default function DeleteModal() {
       });
       setOpenClear(false);
     }
+
+    setClearing(false);
   };
 
   return (
@@ -66,9 +73,17 @@ export default function DeleteModal() {
               </div>
             </div>
             <div className="bg-gray-50 px-4 gap-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-              <Button onClick={handleClick}>Clear</Button>
+              {clearing ? (
+                <LoadingButton variant={"default"} />
+              ) : (
+                <Button onClick={handleClick}>Clear</Button>
+              )}
 
-              <Button variant={"secondary"} onClick={() => setOpenClear(false)}>
+              <Button
+                disabled={clearing}
+                variant={"secondary"}
+                onClick={() => setOpenClear(false)}
+              >
                 Cancel
               </Button>
             </div>
