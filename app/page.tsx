@@ -10,6 +10,7 @@ import { prisma } from "@/lib/prisma";
 import { DataTable } from "./components/data-table";
 import DeleteModal from "./components/delete-modal";
 import VoterFormModal from "./components/voter-form-modal";
+import { Toaster } from "@/components/ui/toaster";
 
 export default async function Home() {
   const voters: Voter[] = await prisma.voter.findMany({
@@ -20,6 +21,8 @@ export default async function Home() {
 
   return (
     <div className="flex justify-center pt-12 bg-secondary w-full h-screen">
+      <Toaster />
+
       <div className="w-4/5">
         <Card className="w-full">
           <CardHeader>

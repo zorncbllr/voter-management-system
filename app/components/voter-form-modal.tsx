@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 import { useEffect } from "react";
 import { addVoterAction } from "../actions/add-voter";
+import { toast } from "@/hooks/use-toast";
 
 const voterSchema = z.object({
   name: z
@@ -55,6 +56,11 @@ export default function VoterFormModal() {
     addVoterAction(value).then((res) => {
       if (res.success) {
         setOpenForm(false);
+        toast({
+          title: res.msg,
+          description: "You can manage them now in voters table.",
+          action: <Button>Okay</Button>,
+        });
       } else {
         form.setError("name", {
           message: res.msg,

@@ -7,4 +7,10 @@ export const clearVotersAction = async () => {
   await prisma.voter.deleteMany();
 
   revalidatePath("/");
+
+  return {
+    msg: "Voters table has been emptied.",
+    success: true,
+    status: 204,
+  };
 };

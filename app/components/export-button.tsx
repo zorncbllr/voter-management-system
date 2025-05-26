@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { saveAs } from "file-saver";
 import { exportExcelAction } from "../actions/export-excel";
+import { toast } from "@/hooks/use-toast";
 
 function ExportButton() {
   const handleExport = async () => {
@@ -10,11 +11,17 @@ function ExportButton() {
 
     if (res.success && res.blob) {
       saveAs(res.blob as Blob, "voters.xlsx");
-      console.log(res.blob);
+      toast({
+        title: res.msg,
+        description: "You can see them now in your downloads folder",
+      });
     }
 
-    if (res.success == false) {
-      console.log(res);
+    if (!res.success) {
+      toast({
+        title: res.msg,
+        description: "Try importing PCVL files first to populate the table.",
+      });
     }
   };
 

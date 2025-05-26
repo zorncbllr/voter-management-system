@@ -10,9 +10,22 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import { useModalStore } from "../stores/modal-store";
 import { Button } from "@/components/ui/button";
 import { clearVotersAction } from "../actions/clear-voters";
+import { toast } from "@/hooks/use-toast";
 
 export default function DeleteModal() {
   const { openClear, setOpenClear } = useModalStore();
+
+  const handleClick = async () => {
+    const res = await clearVotersAction();
+
+    if (res.success) {
+      toast({
+        title: res.msg,
+        description: "You can import new PCVL files now.",
+      });
+      setOpenClear(false);
+    }
+  };
 
   return (
     <Dialog open={openClear} onClose={setOpenClear} className="relative z-10">
@@ -53,14 +66,7 @@ export default function DeleteModal() {
               </div>
             </div>
             <div className="bg-gray-50 px-4 gap-2 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-              <Button
-                onClick={async () => {
-                  await clearVotersAction();
-                  setOpenClear(false);
-                }}
-              >
-                Clear
-              </Button>
+              <Button onClick={handleClick}>Clear</Button>
 
               <Button variant={"secondary"} onClick={() => setOpenClear(false)}>
                 Cancel

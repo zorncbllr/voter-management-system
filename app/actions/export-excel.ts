@@ -33,7 +33,7 @@ export const exportExcelAction = async () => {
     const voters = await prisma.voter.findMany();
 
     if (voters.length < 1) {
-      throw new Error("Could not export excel file. Data list is empty.");
+      throw new Error("Could not export excel file.");
     }
 
     for (let i = 0; i < voters.length; i++) {
@@ -71,8 +71,13 @@ export const exportExcelAction = async () => {
       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
 
-    return { blob, success: true, status: 200 };
-  } catch (error) {
-    return { msg: error, success: false, status: 500 };
+    return {
+      blob,
+      msg: "Successfully exported excel file.",
+      success: true,
+      status: 200,
+    };
+  } catch (error: any) {
+    return { msg: error.message, success: false, status: 400 };
   }
 };
