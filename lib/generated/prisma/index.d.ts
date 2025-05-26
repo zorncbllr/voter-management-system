@@ -1967,13 +1967,14 @@ export namespace Prisma {
 
   export type VoterWhereUniqueInput = Prisma.AtLeast<{
     voterId?: number
+    name_precinct?: VoterNamePrecinctCompoundUniqueInput
     AND?: VoterWhereInput | VoterWhereInput[]
     OR?: VoterWhereInput[]
     NOT?: VoterWhereInput | VoterWhereInput[]
     name?: StringFilter<"Voter"> | string
     precinct?: StringFilter<"Voter"> | string
     isGiven?: BoolFilter<"Voter"> | boolean
-  }, "voterId">
+  }, "voterId" | "name_precinct">
 
   export type VoterOrderByWithAggregationInput = {
     voterId?: SortOrder
@@ -2071,6 +2072,11 @@ export namespace Prisma {
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type VoterNamePrecinctCompoundUniqueInput = {
+    name: string
+    precinct: string
   }
 
   export type VoterCountOrderByAggregateInput = {

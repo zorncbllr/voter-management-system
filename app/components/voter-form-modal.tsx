@@ -52,8 +52,15 @@ export default function VoterFormModal() {
   });
 
   const submitHandler = (value: z.infer<typeof voterSchema>) => {
-    addVoterAction(value);
-    setOpenForm(false);
+    addVoterAction(value).then((res) => {
+      if (res.success) {
+        setOpenForm(false);
+      } else {
+        form.setError("name", {
+          message: res.msg,
+        });
+      }
+    });
   };
 
   useEffect(() => {

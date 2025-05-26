@@ -16,4 +16,6 @@ model Voter {
   name     String
   precinct String
   isGiven  Boolean @default(false)
+
+  @@unique([name, precinct])
 }

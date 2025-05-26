@@ -114,15 +114,15 @@ export const importPDFAction = async (file: File) => {
     revalidatePath("/");
 
     return {
-      msg: "successfully imported pcvl file.",
+      msg: "Successfully imported pcvl file.",
       success: true,
       status: 200,
     };
   } catch (error) {
     return {
-      msg: "failed to import pcvl pdf file.",
+      msg: "There's a duplication in voter's name and precinct",
       success: false,
-      status: 500,
+      status: 400,
     };
   }
 };

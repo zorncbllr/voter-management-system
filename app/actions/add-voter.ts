@@ -21,8 +21,16 @@ export const addVoterAction = async ({
 
     revalidatePath("/");
 
-    return { msg: "Voter has been added.", success: true, status: 204 };
+    return {
+      msg: "Voter has been added Successfully.",
+      success: true,
+      status: 204,
+    };
   } catch (error) {
-    return { msg: error, success: false, status: 400 };
+    return {
+      msg: `Voter ${name} ${precinct} already exists.`,
+      success: false,
+      status: 400,
+    };
   }
 };

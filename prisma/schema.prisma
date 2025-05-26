@@ -12,8 +12,10 @@ datasource db {
 }
 
 model Voter {
-  voterId Int @id @default(autoincrement())
-  name String 
+  voterId  Int     @id @default(autoincrement())
+  name     String
   precinct String
-  isGiven Boolean @default(false)
+  isGiven  Boolean @default(false)
+
+  @@unique([name, precinct])
 }
