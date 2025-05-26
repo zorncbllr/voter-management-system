@@ -10,9 +10,9 @@ interface Voter {
   isGiven: boolean;
 }
 
-export const importPDFAction = async (base64Data: string) => {
+export const importPDFAction = async (file: File) => {
   try {
-    const buffer = Buffer.from(base64Data, "base64");
+    const buffer = Buffer.from(await file.arrayBuffer());
 
     let currentPrecint: string | null = null;
     const voters: Voter[] = [];
